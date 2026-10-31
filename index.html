@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="claude:viewport-fit-sides" content="cover" />
+    <meta name="robots" content="noindex" />
+    <title>%LAB_TITLE%</title>
+    <script type="module" src="./src/web/main.ts"></script>
+  </head>
+  <body>
+    <div class="page">
+      <header class="masthead">
+        <div class="masthead-text">
+          <p class="eyebrow" data-i18n="lab.subtitle"></p>
+          <h1 data-i18n="lab.title"></h1>
+          <p class="build" id="build"></p>
+        </div>
+        <div class="lang" role="group" aria-label="Language / 语言">
+          <button type="button" id="lang-zh" data-lang="zh" data-i18n="lang.zh"></button>
+          <button type="button" id="lang-en" data-lang="en" data-i18n="lang.en"></button>
+        </div>
+      </header>
+
+      <section class="intro">
+        <p data-i18n="lab.intro"></p>
+        <p class="howto" data-i18n="lab.howto"></p>
+        <div class="run">
+          <button type="button" id="start" class="primary"></button>
+          <div class="run-state">
+            <div class="progress" id="progress" hidden><div class="progress-bar" id="progress-bar"></div></div>
+            <p class="status" id="status" aria-live="polite"></p>
+          </div>
+        </div>
+      </section>
+
+      <section class="block" aria-labelledby="check-title">
+        <h2 id="check-title" data-i18n="check.title"></h2>
+        <p class="desc" data-i18n="check.desc"></p>
+        <dl class="checks">
+          <div class="check-row">
+            <dt data-i18n="check.math"></dt>
+            <dd>
+              <span class="pill" id="pill-math"></span>
+              <code class="code" id="code-math"></code>
+              <span class="cloud" id="cloud-math"></span>
+            </dd>
+          </div>
+          <div class="check-row">
+            <dt data-i18n="check.rng"></dt>
+            <dd>
+              <span class="pill" id="pill-rng"></span>
+              <code class="code" id="code-rng"></code>
+              <span class="cloud" id="cloud-rng"></span>
+            </dd>
+          </div>
+          <div class="check-row">
+            <dt data-i18n="check.match"></dt>
+            <dd>
+              <span class="pill" id="pill-match"></span>
+              <code class="code" id="code-match"></code>
+              <span class="cloud" id="cloud-match"></span>
+            </dd>
+          </div>
+        </dl>
+      </section>
+
+      <section class="block" aria-labelledby="speed-title">
+        <h2 id="speed-title" data-i18n="speed.title"></h2>
+        <p class="desc" data-i18n="speed.desc"></p>
+        <div class="readout">
+          <p class="readout-number"><span id="speed-median">—</span><span class="readout-unit" id="speed-unit"></span></p>
+          <div class="readout-meta">
+            <span class="pill" id="speed-pill"></span>
+            <span id="speed-first"></span>
+            <span id="speed-factor"></span>
+          </div>
+        </div>
+        <p class="fine" data-i18n="speed.target"></p>
+      </section>
+
+      <section class="block" aria-labelledby="copy-title">
+        <h2 id="copy-title" data-i18n="copy.title"></h2>
+        <p class="fine" id="device"></p>
+        <textarea id="report" readonly rows="7" spellcheck="false"></textarea>
+        <div class="copy-row">
+          <button type="button" id="copy" class="secondary" data-i18n="copy.button"></button>
+          <span class="copy-status" id="copy-status" aria-live="polite"></span>
+        </div>
+      </section>
+
+      <section class="block" aria-labelledby="viewer-title">
+        <h2 id="viewer-title" data-i18n="viewer.title"></h2>
+        <p class="desc" data-i18n="viewer.desc"></p>
+        <div class="scoreboard">
+          <span class="team team-home" id="sb-home"></span>
+          <span class="score" id="sb-score">0 : 0</span>
+          <span class="team team-away" id="sb-away"></span>
+          <span class="clock" id="sb-clock">00:00</span>
+        </div>
+        <canvas id="pitch" role="img" data-i18n-aria="viewer.canvas"></canvas>
+        <div class="viewer-controls">
+          <button type="button" id="play" class="secondary"></button>
+          <button type="button" id="restart" class="ghost" data-i18n="viewer.restart"></button>
+          <div class="speeds" role="group">
+            <button type="button" class="ghost" data-speed="1" aria-pressed="false"></button>
+            <button type="button" class="ghost" data-speed="4" aria-pressed="true"></button>
+            <button type="button" class="ghost" data-speed="16" aria-pressed="false"></button>
+          </div>
+          <span class="fine" id="viewer-note" aria-live="polite"></span>
+        </div>
+      </section>
+
+      <footer class="fine" data-i18n="footer.note"></footer>
+    </div>
+  </body>
+</html>

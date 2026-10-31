@@ -1,0 +1,11 @@
+{
+  // 比赛核心（以及暂时的技术验证原型）专用的类型检查：
+  // 只认识 ECMAScript 标准库，不认识 window、document、process、performance、console 等，
+  // 核心代码一旦用到浏览器或 Node 的接口，类型检查就会失败（决策记录 D-005、D-006）。
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "lib": ["ES2022"],
+    "types": []
+  },
+  "include": ["src/core", "src/proto"]
+}

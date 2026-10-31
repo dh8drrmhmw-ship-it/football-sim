@@ -38,3 +38,10 @@
 ## 安全
 
 - 仓库是公开的：不提交任何密钥、令牌、账号信息或个人信息。
+
+## 代码和命令（结构见 README「开发」）
+
+- 提交前 `npm run check`（类型检查、代码检查、测试）必须全部通过，然后直接推送到 main（决策记录 D-014）。
+- 比赛核心的规则由机器检查：`tsconfig.core.json`（不认识浏览器和 Node 接口）和 `eslint.config.js`（禁用 Math、Date、`**` 等）。不要为了让检查通过去放宽这两个文件。
+- 改了比赛核心后跑 `npm run bench`，看云端一场的用时（预算 1 秒以内，见 `docs/技术验证.md`）。
+- 测试链接：仓库公开并开启 Pages 前，把 `npm run build` 生成的 `dist/artifact.html` 发布到 claude.ai，并沿用上次的链接（见 `docs/进度.md`，决策记录 D-015）。

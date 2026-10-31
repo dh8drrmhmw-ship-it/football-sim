@@ -1,0 +1,62 @@
+# 自动检查和部署：每次推送到 main 都跑一遍类型检查、代码检查、测试、云端测速和构建。
+# 仓库公开并在 Settings → Pages 里选了「GitHub Actions」之后，测试页会自动部署到 GitHub Pages。
+name: 检查和部署
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    name: 检查、测试、构建
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      - name: 类型检查（含比赛核心专用的严格检查）
+        run: npm run typecheck
+      - name: 代码检查（含比赛核心的确定性规则）
+        run: npm run lint
+      - name: 自动测试
+        run: npm test
+      - name: 云端测速（结果写进本次运行的摘要页）
+        run: npm run bench -- --runs 5
+      - name: 构建测试页
+        run: npm run build
+      - name: 上传测试页
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main' && !github.event.repository.private
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: dist
+
+  deploy:
+    name: 部署测试链接
+    needs: check
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main' && !github.event.repository.private
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    concurrency:
+      group: pages
+      cancel-in-progress: false
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
