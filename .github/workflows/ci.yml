@@ -1,5 +1,6 @@
 # 自动检查和部署：每次推送到 main 都跑一遍类型检查、代码检查、测试、云端测速和构建。
 # 仓库公开并在 Settings → Pages 里选了「GitHub Actions」之后，测试页会自动部署到 GitHub Pages。
+# 改完设置后不想等下次提交，可以在 Actions 页面手动运行（workflow_dispatch），同样会部署。
 name: 检查和部署
 
 on:
@@ -38,7 +39,7 @@ jobs:
       - name: 构建测试页
         run: npm run build
       - name: 上传测试页
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main' && !github.event.repository.private
+        if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main' && !github.event.repository.private
         uses: actions/upload-pages-artifact@v4
         with:
           path: dist
@@ -46,7 +47,7 @@ jobs:
   deploy:
     name: 部署测试链接
     needs: check
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main' && !github.event.repository.private
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main' && !github.event.repository.private
     runs-on: ubuntu-latest
     permissions:
       pages: write
