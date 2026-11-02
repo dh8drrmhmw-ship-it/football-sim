@@ -44,4 +44,4 @@
 - 提交前 `npm run check`（类型检查、代码检查、测试）必须全部通过，然后直接推送到 main（决策记录 D-014）。
 - 比赛核心的规则由机器检查：`tsconfig.core.json`（不认识浏览器和 Node 接口）和 `eslint.config.js`（禁用 Math、Date、`**` 等）。不要为了让检查通过去放宽这两个文件。
 - 改了比赛核心后跑 `npm run bench`，看云端一场的用时（预算 1 秒以内，见 `docs/技术验证.md`）。
-- 测试链接：仓库公开并开启 Pages 前，把 `npm run build` 生成的 `dist/artifact.html` 发布到 claude.ai，并沿用上次的链接（见 `docs/进度.md`，决策记录 D-015）。
+- 测试链接：推送到 main、自动检查通过后，自动部署到 https://dh8drrmhmw-ship-it.github.io/football-sim/ （决策记录 D-018）。推送后用 GitHub Actions 的运行记录确认「部署测试链接」成功。GitHub Pages 出问题时，才临时把 `npm run build` 生成的 `dist/artifact.html` 发布到 claude.ai（D-015）。

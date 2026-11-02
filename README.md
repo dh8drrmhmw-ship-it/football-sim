@@ -8,6 +8,8 @@
 
 阶段 0：准备和设计定稿。进度见 [docs/进度.md](docs/进度.md)。
 
+测试页（实验室：确定性自检、测速、原型比赛画面）：https://dh8drrmhmw-ship-it.github.io/football-sim/
+
 ## 文档
 
 - [立项](docs/立项.md)：做什么、给谁玩、明确不做什么
